@@ -12,7 +12,7 @@ func HandlerLogin(s *app.State, cmd Command) error {
 		return errors.New("Error: expect one argument")
 	}
 
-	currentUserName := s.Config.CurrentUserName
+	currentUserName := cmd.args[0]
 	s.Config.SetUser(currentUserName)
 
 	fmt.Println("The user name has been set.")
