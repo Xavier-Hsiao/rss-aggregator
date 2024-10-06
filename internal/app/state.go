@@ -1,4 +1,4 @@
-package state
+package app
 
 import "github.com/Xavier-Hsiao/rss-aggregator/internal/config"
 
