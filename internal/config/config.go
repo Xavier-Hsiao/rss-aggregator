@@ -39,7 +39,7 @@ func (config *Config) SetUser(userName string) error {
 	// Convert userName string to josn format
 	config.CurrentUserName = userName
 
-	return write(*config)
+	return Write(*config)
 }
 
 // Some helper functions
@@ -54,7 +54,7 @@ func getConfigFilePath() (string, error) {
 	return configFilePath, nil
 }
 
-func write(cfg Config) error {
+func Write(cfg Config) error {
 	configFilePath, err := getConfigFilePath()
 	if err != nil {
 		return err

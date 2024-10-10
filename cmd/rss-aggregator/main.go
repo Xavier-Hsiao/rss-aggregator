@@ -16,13 +16,13 @@ func main() {
 	// Initial config file read
 	c, err := config.Read()
 	if err != nil {
-		log.Fatalf("failed to read config file:\n", err)
+		log.Fatal("failed to read config file:\n", err)
 	}
 
 	// Connect to database
 	db, err := sql.Open("postgres", c.DbURL)
 	if err != nil {
-		log.Fatalf("failed to connect to database:\n", err)
+		log.Fatal("failed to connect to database:\n", err)
 	}
 
 	dbQueries := datbase.New(db)
@@ -36,6 +36,7 @@ func main() {
 		Handlers: make(map[string]func(*app.State, cli.Command) error),
 	}
 	commands.Register("login", cli.HandlerLogin)
+	commands.Register("register", cli.HandlerRegister)
 
 	args := os.Args
 	if len(args) < 2 {
