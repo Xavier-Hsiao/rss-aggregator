@@ -1,1 +1,1 @@
-{"db_url":"postgres://example","current_user_name":"Alice"}
+{"db_url":"protocol://xioyuting@host:port/database?sslmode=disable","current_user_name":"Alice"}
