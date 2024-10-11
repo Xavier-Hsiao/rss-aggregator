@@ -1,7 +1,9 @@
 package cli
 
 import (
+	"context"
 	"fmt"
+	"log"
 
 	"github.com/Xavier-Hsiao/rss-aggregator/internal/app"
 )
@@ -12,12 +14,19 @@ func HandlerLogin(s *app.State, cmd Command) error {
 	}
 
 	currentUserName := cmd.Args[0]
-	err := s.Config.SetUser(currentUserName)
+
+	// Check if the given user exists in database
+	_, err := s.DB.GetUserById(context.Background(), currentUserName)
 	if err != nil {
-		return fmt.Errorf("failed to set current user: %v", err)
+		log.Fatalf("couldn't find %v\n", currentUserName)
 	}
 
-	fmt.Println("User has been switched!")
+	err = s.Config.SetUser(currentUserName)
+	if err != nil {
+		return fmt.Errorf("failed to set current user: %v", err)
+	} else {
+		fmt.Println("User has been switched!")
+	}
 
 	return nil
 }
