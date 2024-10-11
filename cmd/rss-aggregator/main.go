@@ -24,6 +24,7 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to connect to database:\n", err)
 	}
+	defer db.Close()
 
 	dbQueries := datbase.New(db)
 
@@ -37,6 +38,7 @@ func main() {
 	}
 	commands.Register("login", cli.HandlerLogin)
 	commands.Register("register", cli.HandlerRegister)
+	commands.Register("reset", cli.HandlerReset)
 
 	args := os.Args
 	if len(args) < 2 {

@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/Xavier-Hsiao/rss-aggregator/internal/app"
-	"github.com/Xavier-Hsiao/rss-aggregator/internal/config"
 	"github.com/Xavier-Hsiao/rss-aggregator/internal/datbase"
 	"github.com/google/uuid"
 )
@@ -35,11 +34,10 @@ func HandlerRegister(s *app.State, cmd Command) error {
 		log.Fatal("User already exists")
 	}
 
-	// Write the new user to config file
-	s.Config.CurrentUserName = newUser.Name
-	err = config.Write(*s.Config)
+	// Set the new user to config
+	err = s.Config.SetUser(newUser.Name)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to set user name")
 	}
 
 	fmt.Println("User created!")

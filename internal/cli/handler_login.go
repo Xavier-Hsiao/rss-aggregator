@@ -24,9 +24,9 @@ func HandlerLogin(s *app.State, cmd Command) error {
 	err = s.Config.SetUser(currentUserName)
 	if err != nil {
 		return fmt.Errorf("failed to set current user: %v", err)
-	} else {
-		fmt.Println("User has been switched!")
 	}
+
+	fmt.Println("User has been switched!")
 
 	return nil
 }
