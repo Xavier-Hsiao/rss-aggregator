@@ -39,6 +39,7 @@ func main() {
 	commands.Register("login", cli.HandlerLogin)
 	commands.Register("register", cli.HandlerRegister)
 	commands.Register("reset", cli.HandlerReset)
+	commands.Register("users", cli.HanlderUsers)
 
 	args := os.Args
 	if len(args) < 2 {
