@@ -16,7 +16,7 @@ func HandlerLogin(s *app.State, cmd Command) error {
 	currentUserName := cmd.Args[0]
 
 	// Check if the given user exists in database
-	_, err := s.DB.GetUserById(context.Background(), currentUserName)
+	_, err := s.DB.GetUserByName(context.Background(), currentUserName)
 	if err != nil {
 		log.Fatalf("couldn't find %v\n", currentUserName)
 	}
