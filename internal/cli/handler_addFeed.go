@@ -15,6 +15,8 @@ func HandlerAddFeed(s *app.State, cmd Command) error {
 		return fmt.Errorf("error not enough arguments, expected 2")
 	}
 
+	ctx := context.Background()
+
 	// Get the current user name for fk (user_id) in feeds table
 	currentUserName := s.Config.CurrentUserName
 	user, err := s.DB.GetUserByName(context.Background(), currentUserName)
@@ -24,7 +26,7 @@ func HandlerAddFeed(s *app.State, cmd Command) error {
 	userID := user.ID
 
 	newFeed, err := s.DB.CreateFeed(
-		context.Background(),
+		ctx,
 		datbase.CreateFeedParams{
 			ID:        uuid.New(),
 			CreatedAt: time.Now(),
@@ -36,6 +38,21 @@ func HandlerAddFeed(s *app.State, cmd Command) error {
 	)
 	if err != nil {
 		return fmt.Errorf(err.Error())
+	}
+
+	// Add feed_follows row
+	_, err = s.DB.CreateFeedFollow(
+		ctx,
+		datbase.CreateFeedFollowParams{
+			ID:        uuid.New(),
+			CreatedAt: time.Now(),
+			UpdatedAt: time.Now(),
+			UserID:    user.ID,
+			FeedID:    newFeed.ID,
+		},
+	)
+	if err != nil {
+		return fmt.Errorf("error creating feed follows row: %v", err)
 	}
 
 	fmt.Println("Feed created!")
