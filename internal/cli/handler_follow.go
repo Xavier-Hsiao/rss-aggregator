@@ -10,14 +10,9 @@ import (
 	"github.com/google/uuid"
 )
 
-func HandlerFollow(s *app.State, cmd Command) error {
+func HandlerFollow(s *app.State, cmd Command, user datbase.User) error {
 	ctx := context.Background()
 	url := cmd.Args[0]
-
-	user, err := s.DB.GetUserByName(ctx, s.Config.CurrentUserName)
-	if err != nil {
-		return fmt.Errorf("error getting user by name: %v", err)
-	}
 
 	feed, err := s.DB.GetFeedByURL(ctx, url)
 	if err != nil {

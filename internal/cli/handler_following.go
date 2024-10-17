@@ -5,14 +5,11 @@ import (
 	"fmt"
 
 	"github.com/Xavier-Hsiao/rss-aggregator/internal/app"
+	"github.com/Xavier-Hsiao/rss-aggregator/internal/datbase"
 )
 
-func HandlerGetFeedFollowsForUser(s *app.State, cmd Command) error {
+func HandlerGetFeedFollowsForUser(s *app.State, cmd Command, user datbase.User) error {
 	ctx := context.Background()
-	user, err := s.DB.GetUserByName(ctx, s.Config.CurrentUserName)
-	if err != nil {
-		return fmt.Errorf("error getting user by name: %v", err)
-	}
 
 	FeedFollows, err := s.DB.GetFeedFollowsForUser(ctx, user.ID)
 	if err != nil {

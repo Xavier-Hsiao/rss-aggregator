@@ -10,19 +10,12 @@ import (
 	"github.com/google/uuid"
 )
 
-func HandlerAddFeed(s *app.State, cmd Command) error {
+func HandlerAddFeed(s *app.State, cmd Command, user datbase.User) error {
 	if len(cmd.Args) < 2 {
 		return fmt.Errorf("error not enough arguments, expected 2")
 	}
 
 	ctx := context.Background()
-
-	// Get the current user name for fk (user_id) in feeds table
-	currentUserName := s.Config.CurrentUserName
-	user, err := s.DB.GetUserByName(context.Background(), currentUserName)
-	if err != nil {
-		return fmt.Errorf(err.Error())
-	}
 	userID := user.ID
 
 	newFeed, err := s.DB.CreateFeed(
