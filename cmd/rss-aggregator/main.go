@@ -45,6 +45,7 @@ func main() {
 	commands.Register("feeds", cli.HandlerGetFeeds)
 	commands.Register("follow", cli.MiddlewareLoggedIn(cli.HandlerFollow))
 	commands.Register("following", cli.MiddlewareLoggedIn(cli.HandlerGetFeedFollowsForUser))
+	commands.Register("unfollow", cli.MiddlewareLoggedIn(cli.HandlerDeleteFeedFollowsForUser))
 
 	args := os.Args
 	if len(args) < 2 {
