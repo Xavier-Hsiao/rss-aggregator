@@ -68,7 +68,41 @@ go build -o rss-cli
 ```
 
 ## Usage
+Use these commands to manage your RSS feeds!
 
+- Register user
+```bash
+./rss-cli/cmd/rss-aggregator register username
+```
 
+- Switch user
+```bash
+./rss-cli/cmd/rss-aggregator login username
+```
+
+- Add feed for current user
+```bash
+./rss-cli/cmd/rss-aggregator addfeed feedname feedURL
+```
+
+- List out feeds for current user
+```bash
+./rss-cli/cmd/rss-aggregator feeds
+```
+
+- Follow feed
+```bash
+./rss-cli/cmd/rss-aggregator follow feedURL
+```
+
+- Aggregate feeds based on provided time
+```bash
+./rss-cli/cmd/rss-aggregator agg 1m
+```
+
+- Browse posts for current users
+```bash
+./rss-cli/cmd/rss-aggregator browse
+```
 
 
